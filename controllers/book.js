@@ -127,9 +127,7 @@ exports.borrow = function (req, res, next) {
 		BorrowingRecord.newAndSave(bookId,user.id,now,now, ep.done('save'));
 	});
 
-	ep.all('save', function(book){
-		console.log("保存后");
-		console.log(book.has_borrowed);
+	ep.all('save', function(){
 		res.redirect('/');
 	})
 }
@@ -138,7 +136,6 @@ exports.returnBook = function (req, res, next) {
 	var book_id = req.query.book_id;
 	var ep = new EventProxy();
 	ep.fail(next);
-	console.log(book_id);
 	BorrowingRecord.returnBook(book_id,new Date(),ep.done(function(){
 		res.send({
 			success : true
