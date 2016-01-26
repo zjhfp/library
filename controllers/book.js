@@ -142,3 +142,15 @@ exports.returnBook = function (req, res, next) {
 		});
 	}));
 }
+
+exports.showBorrowRecord = function (req, res, next) {
+	var book_id = req.query.book_id;
+	var ep = new EventProxy();
+	ep.fail(next);
+
+	BorrowingRecord.listRecords(book_id, ep.done(function(records){
+		res.render("book/borrowHistory",{
+			records: records
+		});
+	}));
+}

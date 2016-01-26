@@ -50,3 +50,14 @@ exports.returnBook = function(book_id,actual_return_date,callback){
 
 }
 
+exports.listRecords = function(book_id, callback) {
+	BorrowingRecord.find({'book_id': book_id}, function(err,records){
+		if(err){
+			return callback(err);
+		}
+		if(records.length === 0){
+			return callback(null, records);
+		}
+		return callback(null,records);
+	})
+}

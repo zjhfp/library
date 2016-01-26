@@ -1,0 +1,14 @@
+<div id="book_list">
+	<a class="btn btn-primary" href="book/add" role="button">新增</a>
+	<table class="table">
+		<thead>
+			<th>借阅人</th>
+			<th>借阅时间</th>
+			<th>是否已还</th>
+			<th>还书时间</th>
+		</thead>
+		<tbody>
+			<%- partial('../book/historyAbstract', {collection: records, as:'record'})%>
+		</tbody>
+	</table>
+</div>

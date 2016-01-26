@@ -13,6 +13,7 @@
 			<a href="#" class="btn btn-primary returnbtn" data-bookid='<%= book.id%>'>还书</a>
 			<a href="#" class="btn btn-primary detailbtn"
 			data-bookid='<%= book.id%>'>详情</a>
+			<a href="/book/history?book_id=<%= book.id%>" class="btn btn-primary">借阅历史</a>
 		</th>
 	<%} else {%>
 		<th>

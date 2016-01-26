@@ -19,6 +19,7 @@ router.get('/book/add', book.showAdd);
 router.post('/book/add', book.add);
 router.post('/book/borrow', book.borrow);
 router.get('/book/return', book.returnBook);
+router.get('/book/history', book.showBorrowRecord);
 
 router.get('/user/add', user.showAdd);
 router.post('/user/add', user.add);
