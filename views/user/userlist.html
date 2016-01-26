@@ -1,0 +1,14 @@
+<div id="user_list">
+	<a class="btn btn-primary" href="/user/add" role="button">新增</a>
+	<table class="table">
+		<thead>
+			<th>姓名</th>
+			<th>登录名</th>
+			<th>手机号</th>
+			<th>操作</th>
+		</thead>
+		<tbody>
+			<%- partial('../user/abstract', {collection: users, as:'user'})%>
+		</tbody>
+	</table>
+</div>

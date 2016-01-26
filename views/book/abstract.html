@@ -1,0 +1,71 @@
+<tr>
+	<th><%= book.name %></th>
+	<th><%= book.author %></th>
+	<th><%= book.serial %></th>
+	<th><%= book.version %></th>
+	<% if(book.has_borrowed) {%>
+		<th>已借出</th>
+	<%} else {%>
+		<th>未借出</th>
+	<%}%>
+	<% if(book.has_borrowed) {%>
+		<th>
+			<a href="#" class="btn btn-primary returnbtn" data-bookid='<%= book.id%>'>还书</a>
+			<a href="#" class="btn btn-primary detailbtn"
+			data-bookid='<%= book.id%>'>详情</a>
+		</th>
+	<%} else {%>
+		<th>
+			<button type="button" class="btn btn-primary borrowerbtn" data-bookid='<%= book.id%>'>借阅</button>
+		</th>
+	<%}%>
+</tr>
+<% if(book.has_borrowed) {%>
+	<tr id='detail<%= book.id%>' style="display:none;">
+		<td colspan="6">
+			<table>
+				<thead>
+					<tr>
+						<th>借阅人</th>
+						<th>借出时间</th>
+						<th>还书时间</th>
+					</tr>
+					<tr>
+						<th><%= book.borrower.name %></th>
+						<th><%= book.out_time %></th>
+						<th><%= book.return_time %></th>
+					</tr>
+				</thead>
+			</table>	
+		</td>
+	<tr>
+<%}%>
+
+
+<script>
+	$(".borrowerbtn").click(function(){
+		var $this = $(this);
+		var id=$this.data('bookid');
+		$("#book_id").val(id);
+		$('#userChoise').modal('show')
+	});
+	$(".detailbtn").click(function(){
+		var $this = $(this);
+		var id=$this.data('bookid');
+		if($('#detail'+id).is(":hidden")){
+			$("#detail"+id).show();
+		} else {
+			$("#detail"+id).hide();
+		}
+	});
+	$(".returnbtn").click(function(){
+		var $this = $(this);
+		var id=$this.data('bookid');
+		$.get('book/return?book_id='+id,function(data){
+			if(data.success){
+				alert("还书成功");
+				window.location.reload();
+			}
+		})
+	});
+</script>

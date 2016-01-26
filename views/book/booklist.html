@@ -1,0 +1,37 @@
+<div id="book_list">
+	<a class="btn btn-primary" href="book/add" role="button">新增</a>
+	<table class="table">
+		<thead>
+			<th>书名</th>
+			<th>作者</th>
+			<th>序列号</th>
+			<th>版本号</th>
+			<th>借阅状态</th>
+			<th>操作</th>
+		</thead>
+		<tbody>
+			<%- partial('../book/abstract', {collection: books, as:'book'})%>
+		</tbody>
+	</table>
+</div>
+<div class="modal fade" id="userChoise" tabindex="-1" role="dialog">
+	<form action="book/borrow" method="post">
+	<div class="modal-content">
+		<div class="modal-dialog" role="document">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">图书借出</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="book_id" name="book_id"/>
+		    	<label for="user_mobile">手机号</label>
+		    	<input type="text" id="user_mobile" name="user_mobile" class="form-control"/>
+		    </div>
+		    <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="submit" class="btn btn-primary" >确定</button>
+		    </div>
+		</div>
+	</div>
+	</form>
+</div>
