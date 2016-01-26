@@ -35,3 +35,33 @@
 	</div>
 	</form>
 </div>
+<script>
+	$(function(){
+		$(".borrowerbtn").click(function(){
+			var $this = $(this);
+			var id=$this.data('bookid');
+			$("#book_id").val(id);
+			$('#userChoise').modal('show')
+		});
+		$(".detailbtn").click(function(){
+			var $this = $(this);
+			var id=$this.data('bookid');
+			if($('#detail'+id).is(":hidden")){
+				$("#detail"+id).show();
+			} else {
+				$("#detail"+id).hide();
+			}
+		});
+		$(".returnbtn").click(function(){
+			var $this = $(this);
+			var id=$this.data('bookid');
+			$.get('/book/return?book_id='+id,function(data){
+				if(data.success){
+					alert("还书成功");
+					window.location.reload();
+				}
+			})
+		});
+	});
+	
+</script>

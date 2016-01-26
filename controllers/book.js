@@ -29,12 +29,10 @@ exports.add = function (req, res, next) {
 			return res.status(403).send('该书已存在');
 		}
 	}));
-	Book.newAndSave(name, author, serial, version, function(book){
-		ep.emit('book_saved',book);
-	});
+	Book.newAndSave(name, author, serial, version, ep.done('book_saved'));
 
-	ap.all('book_saved', function (book) {
-		res.redirect('book/list');
+	ep.all('book_saved', function () {
+		res.redirect('/book/list');
 	});
 };
 
@@ -149,8 +147,23 @@ exports.showBorrowRecord = function (req, res, next) {
 	ep.fail(next);
 
 	BorrowingRecord.listRecords(book_id, ep.done(function(records){
-		res.render("book/borrowHistory",{
-			records: records
+		records.forEach(function (record) {
+			User.getUserById(record.borrower_id, ep.done(function (user) {
+				record.borrower = _.pick(user, ['name','mobile']);
+				ep.emit('recordborrower');
+			}));
 		});
+
+		ep.after('recordborrower', records.length, function () {
+			records = records.map(function (book) {
+				return _.pick(book, ['id','name','has_returned',
+					'borrower','actual_return_date','return_date','borrow_date']);
+
+			});
+			res.render("book/borrowHistory",{
+				records: records
+			});
+		})
+
 	}));
 }

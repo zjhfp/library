@@ -10,14 +10,14 @@
 	<%}%>
 	<% if(book.has_borrowed) {%>
 		<th>
-			<a href="#" class="btn btn-primary returnbtn" data-bookid='<%= book.id%>'>还书</a>
-			<a href="#" class="btn btn-primary detailbtn"
-			data-bookid='<%= book.id%>'>详情</a>
-			<a href="/book/history?book_id=<%= book.id%>" class="btn btn-primary">借阅历史</a>
+			<a href="#" class="btn btn-primary returnbtn" data-bookid='<%= book.id %>'>还书</a>
+			<a href="#" class="btn btn-primary detailbtn" data-bookid='<%= book.id %>'>详情</a>
+			<a href="/book/history?book_id=<%= book.id %>" class="btn btn-primary">借阅历史</a>
 		</th>
 	<%} else {%>
 		<th>
-			<button type="button" class="btn btn-primary borrowerbtn" data-bookid='<%= book.id%>'>借阅</button>
+			<a type="button" class="btn btn-primary borrowerbtn" data-bookid='<%= book.id %>'>借阅</a>
+			<a href="/book/history?book_id=<%= book.id %>" class="btn btn-primary">借阅历史</a>
 		</th>
 	<%}%>
 </tr>
@@ -41,32 +41,3 @@
 		</td>
 	<tr>
 <%}%>
-
-
-<script>
-	$(".borrowerbtn").click(function(){
-		var $this = $(this);
-		var id=$this.data('bookid');
-		$("#book_id").val(id);
-		$('#userChoise').modal('show')
-	});
-	$(".detailbtn").click(function(){
-		var $this = $(this);
-		var id=$this.data('bookid');
-		if($('#detail'+id).is(":hidden")){
-			$("#detail"+id).show();
-		} else {
-			$("#detail"+id).hide();
-		}
-	});
-	$(".returnbtn").click(function(){
-		var $this = $(this);
-		var id=$this.data('bookid');
-		$.get('book/return?book_id='+id,function(data){
-			if(data.success){
-				alert("还书成功");
-				window.location.reload();
-			}
-		})
-	});
-</script>
